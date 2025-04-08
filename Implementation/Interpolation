@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+// Interpolation Search Function
+int interpolationSearch(int arr[], int left, int right, int key) {
+    while (left <= right && key >= arr[left] && key <= arr[right]) {
+        // Estimate the position of the key
+        int pos = left + ((key - arr[left]) * (right - left)) / (arr[right] - arr[left]);
+
+        // Check if the key is at the estimated position
+        if (arr[pos] == key) {
+            return pos;
+        }
+
+        // If the key is smaller, search the left subarray
+        if (arr[pos] > key) {
+            right = pos - 1;
+        }
+        // If the key is larger, search the right subarray
+        else {
+            left = pos + 1;
+        }
+    }
+    return -1; // Key not found
+}
+
+int main() {
+    int arr[] = {1, 5, 7, 10, 12, 16, 18, 20, 25, 30};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int key = 16;
+
+    int result = interpolationSearch(arr, 0, n - 1, key);
+    if (result != -1) {
+        cout << "Element " << key << " found at index " << result << endl;
+    } else {
+        cout << "Element " << key << " not found!" << endl;
+    }
+    return 0;
+}
